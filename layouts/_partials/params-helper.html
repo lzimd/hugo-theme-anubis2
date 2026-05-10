@@ -179,8 +179,10 @@
 {{ end }}
 
 <!-- Migration warnings for legacy camelCase keys -->
-{{ if isset site.Params.anubis2.services "googleAnalytics" }}
-  {{ warnf "Anubis2: Found legacy key 'params.anubis2.services.googleAnalytics' — use 'googleanalytics' (lowercase)." }}
+{{ with site.Params.anubis2.services }}
+  {{ if isset . "googleAnalytics" }}
+    {{ warnf "Anubis2: Found legacy key 'params.anubis2.services.googleAnalytics' — use 'googleanalytics' (lowercase)." }}
+  {{ end }}
 {{ end }}
 {{ $legacyFields := slice "repoId" "categoryId" "issueTerm" "shortName" "shareUrl" "dataMapping" "lazyLoad" }}
 {{ range $svc, $cfg := site.Params.anubis2.services }}
